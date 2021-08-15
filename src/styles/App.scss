@@ -1,0 +1,110 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+/*
+ * Layout
+ * =========================================
+ **/
+
+html,
+body {
+	@apply bg-gray-900;
+}
+
+.main {
+	@apply w-screen h-screen grid grid-cols-5 grid-flow-col gap-4 p-4 overflow-hidden;
+
+	.config {
+		@apply fixed left-0 bottom-0 w-full h-2/3 overflow-y-auto z-10 bg-black bg-opacity-50 backdrop-filter backdrop-blur-lg shadow-2xl p-4 rounded-2xl box-border rounded-bl-none rounded-br-none;
+		transition: 300ms all ease-in-out;
+		transform: translateY(calc(100% - 58px));
+
+		&[data-status='on'] {
+			transform: translateY(0);
+		}
+
+		@screen md {
+			@apply overflow-hidden h-full bg-transparent relative col-span-2 row-span-2 p-0 grid grid-rows-3 grid-flow-row gap-4 transform-none;
+		}
+
+		& > .title {
+			@apply text-gray-300 font-bold text-lg mb-3 text-center relative cursor-pointer;
+
+			@screen md {
+				@apply hidden;
+			}
+		}
+
+		.close {
+			@apply hidden;
+		}
+		&[data-status='on'] {
+			.close {
+				@apply block;
+			}
+		}
+	}
+	.result {
+		@apply w-full h-full col-span-5 row-span-2;
+		@screen md {
+			@apply col-span-3 row-span-2;
+		}
+	}
+}
+
+/*
+ * Common
+ * =========================================
+ **/
+
+//  Error message
+.error {
+	@apply text-red-400;
+}
+
+// Close button
+.close {
+	position: absolute;
+	right: 0;
+	top: 50%;
+	transform: translateY(-50%);
+	width: 24px;
+	height: 24px;
+	opacity: 0.3;
+
+	&:hover {
+		opacity: 1;
+	}
+	&:before,
+	&:after {
+		position: absolute;
+		left: 50%;
+		transform: translateX(-50%);
+		content: ' ';
+		height: 100%;
+		width: 2px;
+		background-color: #fff;
+	}
+	&:before {
+		transform: translateX(-50%) rotate(45deg);
+	}
+	&:after {
+		transform: translateX(-50%) rotate(-45deg);
+	}
+}
+
+// Hide input's arrow button
+input {
+	/* Chrome, Safari, Edge, Opera */
+	&::-webkit-outer-spin-button,
+	&::-webkit-inner-spin-button {
+		-webkit-appearance: none;
+		margin: 0;
+	}
+
+	/* Firefox */
+	&[type='number'] {
+		-moz-appearance: textfield;
+	}
+}
